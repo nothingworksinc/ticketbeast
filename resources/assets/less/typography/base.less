@@ -1,0 +1,34 @@
+@font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+@line-height: 1.5;
+
+@font-size-xjumbo: (45rem / 18rem);     // 45px
+@font-size-jumbo: (36rem / 16rem);      // 36px
+@font-size-xxl: (30rem / 16rem);    // 30px
+@font-size-xl: (24rem / 16rem);     // 24px
+@font-size-lg: (20rem / 16rem);      // 20px
+@font-size-base: 1rem;                  // 16px
+@font-size-sm: (14rem / 16rem);      // 14px
+@font-size-xs: (12rem / 16rem);       // 12px
+
+@font-size-h1: @font-size-xxl;
+@font-size-h2: @font-size-xl;
+@font-size-h3: @font-size-lg;
+@font-size-h4: @font-size-base;
+
+@font-weight-light: 300;
+@font-weight-normal: 400;
+@font-weight-medium: 600;
+@font-weight-bold: 700;
+
+@text-light: rgb(255, 255, 255);
+@text-light-soft: fade(@text-light, 90%);
+@text-light-muted: fade(@text-light, 60%);
+@text-dark: hsl(@hue-brand-primary, 20%, 20%);
+@text-dark-soft: fade(@text-dark, 60%);
+@text-dark-muted: fade(@text-dark, 35%);
+@text-brand: hsv(@hue-brand-primary, 100%, 86%);
+
+
+small {
+    font-size: @font-size-sm;
+}

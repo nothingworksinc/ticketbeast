@@ -1,0 +1,37 @@
+@import "typography/utilities";
+
+.box-shadow {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-focus {
+  // Default
+  outline: thin dotted;
+  // WebKit
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.full-height {
+    min-height: 100vh;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.is-clickable {
+    cursor: pointer;
+}
+
+// Useful for hiding things like radio buttons without making them inaccessible
+// to the keyboard when navigating forms.
+.pseudo-hidden {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+// Display
+.block { display: block; }
+.inline-block { display: inline-block; }

@@ -1,0 +1,29 @@
+@subnav-background: @color-white;
+@subnav-bottom-border: @color-gray-lighter;
+@subnav-active-border: @color-brand-primary;
+
+.subnav {
+    background: @subnav-background;
+    border-bottom: 1px solid @subnav-bottom-border;
+}
+
+.subnav-items {
+    display: flex;
+    align-items: flex-start;
+}
+
+.subnav-item {
+    padding-top: @spacer-4;
+    padding-bottom: @spacer-3;
+    padding-left: @spacer-2;
+    padding-right: @spacer-2;
+    margin-right: @spacer-6;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &.is-active {
+        border-bottom: @spacer-1 solid @subnav-active-border;
+    }
+}
