@@ -54,4 +54,62 @@ class PurchaseTicketsTest extends TestCase
         $this->assertResponseStatus(422);
         $this->assertArrayHasKey('email', $this->decodeResponseJson());
     }
+
+    /** @test */
+    function email_must_be_valid_to_purchase_tickets()
+    {
+        $concert = factory(Concert::class)->create();
+
+        $this->json('POST', "/concerts/{$concert->id}/orders", [
+            'email' => 'not-an-email-address',
+            'ticket_quantity' => 3,
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
+        ]);
+
+        $this->assertResponseStatus(422);
+        $this->assertArrayHasKey('email', $this->decodeResponseJson());
+    }
+
+    /** @test */
+    function ticket_quantity_is_required_to_purchase_tickets()
+    {
+        $concert = factory(Concert::class)->create();
+
+        $this->json('POST', "/concerts/{$concert->id}/orders", [
+            'email' => 'john@example.com',
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
+        ]);
+
+        $this->assertResponseStatus(422);
+        $this->assertArrayHasKey('ticket_quantity', $this->decodeResponseJson());
+    }
+
+    /** @test */
+    function ticket_quantity_must_be_at_least_1_to_purchase_tickets()
+    {
+        $concert = factory(Concert::class)->create();
+
+        $this->json('POST', "/concerts/{$concert->id}/orders", [
+            'email' => 'john@example.com',
+            'ticket_quantity' => 0,
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
+        ]);
+
+        $this->assertResponseStatus(422);
+        $this->assertArrayHasKey('ticket_quantity', $this->decodeResponseJson());
+    }
+
+    /** @test */
+    function payment_token_is_required()
+    {
+        $concert = factory(Concert::class)->create();
+
+        $this->json('POST', "/concerts/{$concert->id}/orders", [
+            'email' => 'john@example.com',
+            'ticket_quantity' => 3,
+        ]);
+
+        $this->assertResponseStatus(422);
+        $this->assertArrayHasKey('payment_token', $this->decodeResponseJson());
+    }
 }
