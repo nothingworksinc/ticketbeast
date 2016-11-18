@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Concert;
+use App\Reservation;
 use Illuminate\Http\Request;
 use App\Billing\PaymentGateway;
 use App\Billing\PaymentFailedException;
@@ -31,12 +32,13 @@ class ConcertOrdersController extends Controller
         try {
             // Find some tickets
             $tickets = $concert->findTickets(request('ticket_quantity'));
+            $reservation = new Reservation($tickets);
 
             // Charge the customer for the tickets
-            $this->paymentGateway->charge($tickets->sum('price'), request('payment_token'));
+            $this->paymentGateway->charge($reservation->totalCost(), request('payment_token'));
 
             // Create an order for those tickets
-            $order = Order::forTickets($tickets, request('email'), $tickets->sum('price'));
+            $order = Order::forTickets($tickets, request('email'), $reservation->totalCost());
 
             return response()->json($order, 201);
 
