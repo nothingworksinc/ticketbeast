@@ -20,7 +20,9 @@ class PurchaseTicketsTest extends TestCase
 
     private function orderTickets($concert, $params)
     {
+        $savedRequest = $this->app['request'];
         $this->json('POST', "/concerts/{$concert->id}/orders", $params);
+        $this->app['request'] = $savedRequest;
     }
 
     private function assertValidationError($field)
