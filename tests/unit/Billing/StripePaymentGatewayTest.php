@@ -1,5 +1,6 @@
 <?php
 
+use App\Billing\StripePaymentGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -10,7 +11,7 @@ class StripePaymentGatewayTest extends TestCase
     function charges_with_a_valid_payment_token_are_successful()
     {
         // Create a new StripePaymentGateway
-        $paymentGateway = new StripePaymentGateway;
+        $paymentGateway = new StripePaymentGateway(config('services.stripe.secret'));
 
         $token = \Stripe\Token::create([
             "card" => [
