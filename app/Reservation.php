@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Billing\Paymentgateway;
+
 class Reservation
 {
     private $tickets;
@@ -28,7 +30,7 @@ class Reservation
         return $this->email;
     }
 
-    public function complete($paymentGateway, $paymentToken)
+    public function complete(PaymentGateway $paymentGateway, $paymentToken)
     {
         $paymentGateway->charge($this->totalCost(), $paymentToken);
 
