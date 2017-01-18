@@ -24,8 +24,7 @@ class StripePaymentGatewayTest extends TestCase
     {
         $paymentGateway = $this->getPaymentGateway();
 
-        // How could we make this API work?
-        $newCharges = $paymentGateway->newChargesDuring(function () {
+        $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
             $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
         });
 
