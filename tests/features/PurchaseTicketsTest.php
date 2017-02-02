@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class PurchaseTicketsTest extends TestCase
+class PurchaseTicketsTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
