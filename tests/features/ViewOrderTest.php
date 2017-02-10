@@ -29,6 +29,10 @@ class ViewOrderTest extends TestCase
         $response = $this->get("/orders/ORDERCONFIRMATION1234");
 
         $response->assertStatus(200);
+
         // Assert we see the correct order details
+        $response->assertViewHas('order', function ($viewOrder) use ($order) {
+            return $order->id === $viewOrder->id;
+        });
     }
 }
