@@ -7,7 +7,7 @@
             <div class="m-xs-b-6">
                 <div class="flex-baseline flex-spaced p-xs-y-4 border-b">
                     <h1 class="text-xl">Order Summary</h1>
-                    <a href="#" class="link-brand-soft">{{ $order->confirmation_number }}</a>
+                    <a href="{{ url("/orders/{$order->confirmation_number}") }}" class="link-brand-soft">{{ $order->confirmation_number }}</a>
                 </div>
                 <div class="p-xs-y-4 border-b">
                     <p>
@@ -23,8 +23,8 @@
                 <div class="card m-xs-b-5">
                     <div class="card-section p-xs-y-3 flex-baseline flex-spaced text-light bg-gray">
                         <div>
-                            <h1 class="text-xl wt-normal">No Warning</h1>
-                            <p class="text-light-muted">with Cruel Hand and Backtrack</p>
+                            <h1 class="text-xl wt-normal">{{ $ticket->concert->title }}</h1>
+                            <p class="text-light-muted">{{ $ticket->concert->subtitle }}</p>
                         </div>
                         <div class="text-right">
                             <strong>General Admission</strong>
@@ -39,8 +39,12 @@
                                         @icon('calendar', 'text-brand-muted')
                                     </div>
                                     <div class="media-body p-xs-l-4">
-                                        <p class="wt-bold">Sunday, October 16, 2011</p>
-                                        <p class="text-dark-soft">Doors at 8:00PM</p>
+                                        <p class="wt-bold">
+                                            {{ $ticket->concert->date->format('l, F j, Y') }}
+                                        </p>
+                                        <p class="text-dark-soft">
+                                            Doors at {{ $ticket->concert->date->format('g:ia') }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -50,10 +54,12 @@
                                         @icon('location', 'text-brand-muted')
                                     </div>
                                     <div class="media-body p-xs-l-4">
-                                        <p class="wt-bold">Music Hall of Williamsburg</p>
+                                        <p class="wt-bold">{{ $ticket->concert->venue }}</p>
                                         <div class="text-dark-soft">
-                                            <p>123 Main St. W</p>
-                                            <p>Brooklyn, New York 14259</p>
+                                            <p>{{ $ticket->concert->venue_address }}</p>
+                                            <p>
+                                                {{ $ticket->concert->city }}, {{ $ticket->concert->state }} {{ $ticket->concert->zip }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +68,7 @@
                     </div>
                     <div class="card-section flex-baseline flex-spaced">
                         <p class="text-lg">{{ $ticket->code }}</p>
-                        <p>adam.wathan@example.com</p>
+                        <p>{{ $order->email }}</p>
                     </div>
                 </div>
                 @endforeach
