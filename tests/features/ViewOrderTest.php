@@ -45,12 +45,10 @@ class ViewOrderTest extends TestCase
             'code' => 'TICKETCODE456'
         ]);
 
-        // Visit the order confirmation page
         $response = $this->get("/orders/ORDERCONFIRMATION1234");
 
         $response->assertStatus(200);
 
-        // Assert we see the correct order details
         $response->assertViewHas('order', function ($viewOrder) use ($order) {
             return $order->id === $viewOrder->id;
         });
@@ -67,8 +65,6 @@ class ViewOrderTest extends TestCase
         $response->assertSee('Laraville, ON');
         $response->assertSee('17916');
         $response->assertSee('john@example.com');
-
-        $response->assertSee('Sunday, March 12, 2017');
-        $response->assertSee('Doors at 8:00pm');
+        $response->assertSee('2017-03-12 20:00');
     }
 }

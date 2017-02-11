@@ -40,7 +40,9 @@
                                     </div>
                                     <div class="media-body p-xs-l-4">
                                         <p class="wt-bold">
-                                            {{ $ticket->concert->date->format('l, F j, Y') }}
+                                            <time datetime="{{ $ticket->concert->date->format('Y-m-d H:i') }}">
+                                                {{ $ticket->concert->date->format('l, F jS, Y') }}
+                                            </time>
                                         </p>
                                         <p class="text-dark-soft">
                                             Doors at {{ $ticket->concert->date->format('g:ia') }}
