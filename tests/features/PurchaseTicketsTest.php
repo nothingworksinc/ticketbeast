@@ -50,6 +50,10 @@ class PurchaseTicketsTest extends TestCase
     function customer_can_purchase_tickets_to_a_published_concert()
     {
         $this->disableExceptionHandling();
+
+        // The API we need in our app to be able to use a different generation strategy in our tests...
+        // $orderConfirmationNumberGenerator->generate(); // 'ORDERCONFIRMATION1234'
+
         $concert = factory(Concert::class)->states('published')->create(['ticket_price' => 3250])->addTickets(3);
 
         $this->orderTickets($concert, [
@@ -61,6 +65,7 @@ class PurchaseTicketsTest extends TestCase
         $this->assertResponseStatus(201);
 
         $this->seeJsonSubset([
+            // 'confirmation_number' => 'ORDERCONFIRMATION1234',
             'email' => 'john@example.com',
             'ticket_quantity' => 3,
             'amount' => 9750,
