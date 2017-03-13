@@ -11,6 +11,7 @@ class Order extends Model
     public static function forTickets($tickets, $email, $amount)
     {
         $order = self::create([
+            'confirmation_number' => app(OrderConfirmationNumberGenerator::class)->generate(),
             'email' => $email,
             'amount' => $amount,
         ]);
