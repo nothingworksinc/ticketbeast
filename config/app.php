@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Zondicons\ZondiconsServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
          * Application Service Providers...
