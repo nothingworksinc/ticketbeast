@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit\Billing;
+
 use App\Billing\PaymentFailedException;
 
 trait PaymentGatewayContractTests

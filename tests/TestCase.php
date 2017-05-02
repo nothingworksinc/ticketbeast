@@ -1,10 +1,15 @@
 <?php
 
+namespace Tests;
+
+use Exception;
 use App\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
+    use CreatesApplication;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -15,20 +20,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function setUp()
     {
         parent::setUp();
-    }
-
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
     }
 
     protected function disableExceptionHandling()

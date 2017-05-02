@@ -1,13 +1,13 @@
 <?php
 
+namespace Tests\Unit;
+
+use Mockery;
 use App\Order;
 use App\Ticket;
-use App\Concert;
-use App\Reservation;
+use Tests\TestCase;
 use App\Billing\Charge;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderTest extends TestCase

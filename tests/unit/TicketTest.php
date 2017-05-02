@@ -1,13 +1,12 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Order;
 use App\Ticket;
-use App\Concert;
-use Carbon\Carbon;
+use Tests\TestCase;
 use App\Facades\TicketCode;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TicketTest extends TestCase
 {
