@@ -10,7 +10,8 @@
         "zondicons/blade-bridge": "^0.1.0",
         "stripe/stripe-php": "^4.3",
         "guzzlehttp/guzzle": "^6.2",
-        "hashids/hashids": "^2.0"
+        "hashids/hashids": "^2.0",
+        "laravel/dusk": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
