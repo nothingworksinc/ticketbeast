@@ -17,3 +17,5 @@ Route::get('/orders/{confirmationNumber}', 'OrdersController@show');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
+
+Route::get('/backstage/concerts/new', 'Backstage\ConcertsController@create');
