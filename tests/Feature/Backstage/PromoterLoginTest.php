@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Backstage;
 
 use App\User;
 use Tests\TestCase;
