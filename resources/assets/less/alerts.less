@@ -1,0 +1,16 @@
+@alert-x-padding: @spacer-5;
+@alert-y-padding: @spacer-4;
+@alert-border-radius: @border-radius;
+
+.alert {
+    padding: @alert-y-padding @alert-x-padding;
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: @alert-border-radius;
+}
+
+.alert-danger {
+    background-color: hsl(hue(@color-danger), 100%, 99%);
+    border-color: @color-danger;
+}
