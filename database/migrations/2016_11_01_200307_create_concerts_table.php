@@ -15,6 +15,7 @@ class CreateConcertsTable extends Migration
     {
         Schema::create('concerts', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->text('additional_information')->nullable();

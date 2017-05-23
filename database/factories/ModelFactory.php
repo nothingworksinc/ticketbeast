@@ -26,6 +26,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Concert::class, function (Faker\Generator $faker) {
     return [
+        'user_id' => function () {
+            return factory(App\User::class)->create()->id;
+        },
         'title' => 'Example Band',
         'subtitle' => 'with The Fake Openers',
         'date' => Carbon::parse('+2 weeks'),
