@@ -48,9 +48,6 @@
                                 {{ $concert->formatted_date }} @ {{ $concert->formatted_start_time }}
                             </p>
                         </div>
-                        <div class="text-right">
-                            <a href="#" class="btn btn-secondary btn-block">Edit</a>
-                        </div>
                     </div>
                 </div>
             </div>
