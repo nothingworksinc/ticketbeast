@@ -30,12 +30,6 @@ class AddConcertTest extends TestCase
         ], $overrides);
     }
 
-    private function from($url)
-    {
-        session()->setPreviousUrl(url($url));
-        return $this;
-    }
-
     /** @test */
     function promoters_can_view_the_add_concert_form()
     {
