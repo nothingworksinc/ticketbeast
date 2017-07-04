@@ -28,6 +28,7 @@ class Concert extends Model
     public function publish()
     {
         $this->update(['published_at' => $this->freshTimestamp()]);
+        $this->addTickets($this->ticket_quantity);
     }
 
     public function getFormattedDateAttribute()

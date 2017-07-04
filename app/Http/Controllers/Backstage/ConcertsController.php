@@ -49,7 +49,8 @@ class ConcertsController extends Controller
             'state' => request('state'),
             'zip' => request('zip'),
             'ticket_price' => request('ticket_price') * 100,
-        ])->addTickets(request('ticket_quantity'));
+            'ticket_quantity' => (int) request('ticket_quantity'),
+        ]);
 
         $concert->publish();
 
