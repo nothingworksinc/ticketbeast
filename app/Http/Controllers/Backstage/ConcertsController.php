@@ -79,6 +79,7 @@ class ConcertsController extends Controller
             'state' => ['required'],
             'zip' => ['required'],
             'ticket_price' => ['required', 'numeric', 'min:5'],
+            'ticket_quantity' => ['required', 'integer', 'min:1'],
         ]);
 
         $concert = Auth::user()->concerts()->findOrFail($id);
@@ -99,6 +100,7 @@ class ConcertsController extends Controller
             'state' => request('state'),
             'zip' => request('zip'),
             'ticket_price' => request('ticket_price') * 100,
+            'ticket_quantity' => (int) request('ticket_quantity'),
         ]);
 
         return redirect()->route('backstage.concerts.index');
