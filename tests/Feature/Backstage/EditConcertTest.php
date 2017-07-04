@@ -26,6 +26,7 @@ class EditConcertTest extends TestCase
             'state' => 'New state',
             'zip' => '99999',
             'ticket_price' => '72.50',
+            'ticket_quantity' => '10',
         ], $overrides);
     }
 
@@ -169,6 +170,7 @@ class EditConcertTest extends TestCase
             'state' => 'Old state',
             'zip' => '00000',
             'ticket_price' => 2000,
+            'ticket_quantity' => 5,
         ]);
         $this->assertFalse($concert->isPublished());
 
@@ -184,6 +186,7 @@ class EditConcertTest extends TestCase
             'state' => 'New state',
             'zip' => '99999',
             'ticket_price' => '72.50',
+            'ticket_quantity' => '10',
         ]);
 
         $response->assertStatus(404);
@@ -198,6 +201,7 @@ class EditConcertTest extends TestCase
             $this->assertEquals('Old state', $concert->state);
             $this->assertEquals('00000', $concert->zip);
             $this->assertEquals(2000, $concert->ticket_price);
+            $this->assertEquals(5, $concert->ticket_quantity);
         });
     }
 
@@ -217,6 +221,7 @@ class EditConcertTest extends TestCase
             'state' => 'Old state',
             'zip' => '00000',
             'ticket_price' => 2000,
+            'ticket_quantity' => 5,
         ]);
         $this->assertTrue($concert->isPublished());
 
@@ -232,6 +237,7 @@ class EditConcertTest extends TestCase
             'state' => 'New state',
             'zip' => '99999',
             'ticket_price' => '72.50',
+            'ticket_quantity' => '10',
         ]);
 
         $response->assertStatus(403);
@@ -246,6 +252,7 @@ class EditConcertTest extends TestCase
             $this->assertEquals('Old state', $concert->state);
             $this->assertEquals('00000', $concert->zip);
             $this->assertEquals(2000, $concert->ticket_price);
+            $this->assertEquals(5, $concert->ticket_quantity);
         });
     }
 
