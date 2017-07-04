@@ -75,16 +75,6 @@ class ConcertTest extends TestCase
     }
 
     /** @test */
-    function can_add_tickets()
-    {
-        $concert = factory(Concert::class)->create();
-
-        $concert->addTickets(50);
-
-        $this->assertEquals(50, $concert->ticketsRemaining());
-    }
-
-    /** @test */
     function tickets_remaining_does_not_include_tickets_associated_with_an_order()
     {
         $concert = factory(Concert::class)->create();
@@ -97,7 +87,7 @@ class ConcertTest extends TestCase
     /** @test */
     function trying_to_reserve_more_tickets_than_remain_throws_an_exception()
     {
-        $concert = factory(Concert::class)->create()->addTickets(10);
+        $concert = \ConcertFactory::createPublished(['ticket_quantity' => 10]);
 
         try {
             $reservation = $concert->reserveTickets(11, 'john@example.com');
@@ -112,7 +102,7 @@ class ConcertTest extends TestCase
     /** @test */
     function can_reserve_available_tickets()
     {
-        $concert = factory(Concert::class)->create()->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_quantity' => 3]);
         $this->assertEquals(3, $concert->ticketsRemaining());
 
         $reservation = $concert->reserveTickets(2, 'john@example.com');
@@ -125,7 +115,7 @@ class ConcertTest extends TestCase
     /** @test */
     function cannot_reserve_tickets_that_have_already_been_purchased()
     {
-        $concert = factory(Concert::class)->create()->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_quantity' => 3]);
         $order = factory(Order::class)->create();
         $order->tickets()->saveMany($concert->tickets->take(2));
 
@@ -142,7 +132,7 @@ class ConcertTest extends TestCase
     /** @test */
     function cannot_reserve_tickets_that_have_already_been_reserved()
     {
-        $concert = factory(Concert::class)->create()->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_quantity' => 3]);
         $concert->reserveTickets(2, 'jane@example.com');
 
         try {

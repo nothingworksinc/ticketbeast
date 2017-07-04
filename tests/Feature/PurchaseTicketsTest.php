@@ -60,7 +60,7 @@ class PurchaseTicketsTest extends TestCase
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
 
-        $concert = factory(Concert::class)->states('published')->create(['ticket_price' => 3250])->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 3]);
 
         $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -96,7 +96,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function cannot_purchase_tickets_to_an_unpublished_concert()
     {
-        $concert = factory(Concert::class)->states('unpublished')->create()->addTickets(3);
+        $concert = factory(Concert::class)->states('unpublished')->create(['ticket_quantity' => 3]);
 
         $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -112,7 +112,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function an_order_is_not_created_if_payment_fails()
     {
-        $concert = factory(Concert::class)->states('published')->create(['ticket_price' => 3250])->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 3]);
 
         $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -128,7 +128,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function cannot_purchase_more_tickets_than_remain()
     {
-        $concert = factory(Concert::class)->states('published')->create()->addTickets(50);
+        $concert = \ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 50]);
 
         $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -147,9 +147,7 @@ class PurchaseTicketsTest extends TestCase
     {
         $this->disableExceptionHandling();
 
-        $concert = factory(Concert::class)->states('published')->create([
-            'ticket_price' => 1200
-        ])->addTickets(3);
+        $concert = \ConcertFactory::createPublished(['ticket_price' => 1200, 'ticket_quantity' => 3]);
 
         $this->paymentGateway->beforeFirstCharge(function ($paymentGateway) use ($concert) {
             $this->orderTickets($concert, [
