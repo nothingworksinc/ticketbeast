@@ -32,7 +32,7 @@
         <div class="m-xs-b-6">
             <h2 class="m-xs-b-3 text-base wt-medium text-dark-soft">Published</h2>
             <div class="row">
-                @foreach ($concerts->filter->isPublished() as $concert)
+                @foreach ($publishedConcerts as $concert)
                 <div class="col-xs-12 col-lg-4">
                     <div class="card m-xs-b-4">
                         <div class="card-section">
@@ -62,7 +62,7 @@
         <div>
             <h2 class="m-xs-b-3 text-base wt-medium text-dark-soft">Drafts</h2>
             <div class="row">
-                @foreach ($concerts->reject->isPublished() as $concert)
+                @foreach ($unpublishedConcerts as $concert)
                 <div class="col-xs-12 col-lg-4">
                     <div class="card m-xs-b-4">
                         <div class="card-section">
