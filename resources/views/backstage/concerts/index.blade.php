@@ -29,29 +29,66 @@
 </div>
 <div class="bg-soft p-xs-y-5">
     <div class="container m-xs-b-4">
-        <div class="row">
-            @foreach ($concerts as $concert)
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-section">
-                        <div class="m-xs-b-4">
-                            <div class="m-xs-b-2">
-                                <h1 class="text-lg wt-bold">{{ $concert->title }}</h1>
-                                <p class="wt-medium text-dark-soft">{{ $concert->subtitle }}</p>
+        <div class="m-xs-b-6">
+            <h2 class="m-xs-b-3 text-base wt-medium text-dark-soft">Published</h2>
+            <div class="row">
+                @foreach ($concerts->filter->isPublished() as $concert)
+                <div class="col-xs-12 col-lg-4">
+                    <div class="card m-xs-b-4">
+                        <div class="card-section">
+                            <div class="m-xs-b-4">
+                                <div class="m-xs-b-2">
+                                    <h1 class="text-lg wt-bold">{{ $concert->title }}</h1>
+                                    <p class="wt-medium text-dark-soft text-ellipsis">{{ $concert->subtitle }}</p>
+                                </div>
+                                <p class="text-sm m-xs-b-2">
+                                    @icon('location', 'zondicon-sm text-dark-soft m-xs-r-1')
+                                    {{ $concert->venue }} &ndash; {{ $concert->city }}, {{ $concert->state }}
+                                </p>
+                                <p class="text-sm">
+                                    @icon('calendar', 'zondicon-sm text-dark-soft m-xs-r-1')
+                                    {{ $concert->formatted_date }} @ {{ $concert->formatted_start_time }}
+                                </p>
                             </div>
-                            <p class="text-sm m-xs-b-2">
-                                @icon('location', 'zondicon-sm text-dark-soft m-xs-r-1')
-                                {{ $concert->venue }} &ndash; {{ $concert->city }}, {{ $concert->state }}
-                            </p>
-                            <p class="text-sm">
-                                @icon('calendar', 'zondicon-sm text-dark-soft m-xs-r-1')
-                                {{ $concert->formatted_date }} @ {{ $concert->formatted_start_time }}
-                            </p>
+                            <div>
+                                <a href="{{ route('concerts.show', $concert) }}" class="btn btn-sm btn-secondary">Get Ticket Link</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+        </div>
+        <div>
+            <h2 class="m-xs-b-3 text-base wt-medium text-dark-soft">Drafts</h2>
+            <div class="row">
+                @foreach ($concerts->reject->isPublished() as $concert)
+                <div class="col-xs-12 col-lg-4">
+                    <div class="card m-xs-b-4">
+                        <div class="card-section">
+                            <div class="m-xs-b-4">
+                                <div class="m-xs-b-2">
+                                    <h1 class="text-lg wt-bold">{{ $concert->title }}</h1>
+                                    <p class="wt-medium text-dark-soft text-ellipsis">{{ $concert->subtitle }}</p>
+                                </div>
+                                <p class="text-sm m-xs-b-2">
+                                    @icon('location', 'zondicon-sm text-dark-soft m-xs-r-1')
+                                    {{ $concert->venue }} &ndash; {{ $concert->city }}, {{ $concert->state }}
+                                </p>
+                                <p class="text-sm">
+                                    @icon('calendar', 'zondicon-sm text-dark-soft m-xs-r-1')
+                                    {{ $concert->formatted_date }} @ {{ $concert->formatted_start_time }}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="{{ route('backstage.concerts.edit', $concert) }}" class="btn btn-sm btn-secondary m-xs-r-2">Edit</a>
+                                <a href="#" class="btn btn-sm btn-primary">Publish</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
