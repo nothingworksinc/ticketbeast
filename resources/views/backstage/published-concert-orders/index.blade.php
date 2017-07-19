@@ -33,7 +33,7 @@
                         <div class="card-section p-md-r-2 text-center text-md-left">
                             <h3 class="text-base wt-normal m-xs-b-1">Total Tickets Remaining</h3>
                             <div class="text-jumbo wt-bold">
-                                243
+                                {{ $concert->ticketsRemaining() }}
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="card-section p-md-x-2 text-center text-md-left">
                             <h3 class="text-base wt-normal m-xs-b-1">Total Tickets Sold</h3>
                             <div class="text-jumbo wt-bold">
-                                357
+                                {{ $concert->ticketsSold() }}
                             </div>
                         </div>
                     </div>
