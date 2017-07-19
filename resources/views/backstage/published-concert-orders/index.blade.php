@@ -49,7 +49,7 @@
                         <div class="card-section p-md-l-2 text-center text-md-left">
                             <h3 class="text-base wt-normal m-xs-b-1">Total Revenue</h3>
                             <div class="text-jumbo wt-bold">
-                                $10,353
+                                ${{ $concert->revenueInDollars() }}
                             </div>
                         </div>
                     </div>
