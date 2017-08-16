@@ -60,6 +60,11 @@
             <h2 class="m-xs-b-2 text-lg">Recent Orders</h2>
             <div class="card">
                 <div class="card-section">
+                    @if($orders->isEmpty())
+                    <div class="text-center">
+                        No orders yet.
+                    </div>
+                    @else
                     <table class="table">
                         <thead>
                             <tr>
@@ -71,17 +76,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(range(1, 10) as $i)
+                            @foreach($orders as $order)
                             <tr>
-                                <td>{{ collect(['john', 'jane', 'dave', 'donna'])->random() }}@example.com</td>
-                                <td>{{ rand(1, 4) }}</td>
-                                <td>${{ number_format(rand(5000, 15000) / 100, 2) }}</td>
-                                <td><span class="text-dark-soft">****</span> 4242</td>
-                                <td class="text-dark-soft">July 18, 2017 @ 12:37pm</td>
+                                <td>{{ $order->email }}</td>
+                                <td>{{ $order->ticketQuantity() }}</td>
+                                <td>${{ number_format($order->amount / 100, 2) }}</td>
+                                <td><span class="text-dark-soft">****</span> {{ $order->card_last_four}}</td>
+                                <td class="text-dark-soft">{{ $order->created_at->format('M j, Y @ g:ia') }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
         </div>
