@@ -28,19 +28,31 @@
             <h1 class="text-xl wt-light text-center m-xs-b-4 text-dark">New Message</h1>
 
             @if (session()->has('flash'))
-            <div class="alert alert-success m-xs-b-4">Message sent!</div>
+            <div class="alert alert-success m-xs-b-4">
+                {{ session('flash') }}
+            </div>
             @endif
 
             <div class="card p-xs-6">
-                <form action="#" method="POST">
+                <form action="{{ route('backstage.concert-messages.store', $concert) }}" method="POST">
                     {{ csrf_field() }}
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->first('subject', 'has-error')}}">
                         <label class="form-label">Subject</label>
-                        <input name="subject" class="form-control" required>
+                        <input name="subject" class="form-control" value="{{ old('subject') }}">
+                        @if($errors->has('subject'))
+                        <p class="help-block">
+                            {{ $errors->first('subject') }}
+                        </p>
+                        @endif
                     </div>
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->first('message', 'has-error')}}">
                         <label class="form-label">Message</label>
-                        <textarea class="form-control" name="message" rows="10" required></textarea>
+                        <textarea class="form-control" name="message" rows="10">{{ old('message') }}</textarea>
+                        @if($errors->has('message'))
+                        <p class="help-block">
+                            {{ $errors->first('message') }}
+                        </p>
+                        @endif
                     </div>
                     <div>
                         <button class="btn btn-primary btn-block text-smooth">Send Now</button>
