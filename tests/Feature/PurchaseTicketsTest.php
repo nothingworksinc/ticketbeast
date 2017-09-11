@@ -49,7 +49,7 @@ class PurchaseTicketsTest extends TestCase
     private function assertValidationError($field)
     {
         $this->assertResponseStatus(422);
-        $this->assertArrayHasKey($field, $this->decodeResponseJson());
+        $this->assertArrayHasKey($field, $this->decodeResponseJson()['errors']);
     }
 
     /** @test */
