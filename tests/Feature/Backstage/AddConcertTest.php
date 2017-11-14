@@ -410,11 +410,11 @@ class AddConcertTest extends TestCase
     }
 
     /** @test */
-    function poster_image_must_be_at_least_400px_wide()
+    function poster_image_must_be_at_least_600px_wide()
     {
         Storage::fake('public');
         $user = factory(User::class)->create();
-        $file = File::image('poster.png', 399, 516);
+        $file = File::image('poster.png', 599, 775);
 
         $response = $this->actingAs($user)->from('/backstage/concerts/new')->post('/backstage/concerts', $this->validParams([
             'poster_image' => $file,
