@@ -377,6 +377,7 @@ class AddConcertTest extends TestCase
     {
         $this->disableExceptionHandling();
 
+        Event::fake([ConcertAdded::class]);
         Storage::fake('public');
         $user = factory(User::class)->create();
         $file = File::image('concert-poster.png', 850, 1100);
