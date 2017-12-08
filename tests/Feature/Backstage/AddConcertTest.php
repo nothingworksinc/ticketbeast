@@ -56,7 +56,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function adding_a_valid_concert()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
 
@@ -125,7 +125,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function subtitle_is_optional()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
 
@@ -145,7 +145,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function additional_information_is_optional()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
 
@@ -375,7 +375,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function poster_image_is_uploaded_if_included()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         Event::fake([ConcertAdded::class]);
         Storage::fake('public');
@@ -447,7 +447,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function poster_image_is_optional()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
 
@@ -467,7 +467,7 @@ class AddConcertTest extends TestCase
     /** @test */
     function an_event_is_fired_when_a_concert_is_added()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
 
         Event::fake([ConcertAdded::class]);
         $user = factory(User::class)->create();

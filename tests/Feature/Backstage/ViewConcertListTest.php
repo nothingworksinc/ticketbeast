@@ -29,7 +29,7 @@ class ViewConcertListTest extends TestCase
     /** @test */
     function promoters_can_view_a_list_of_their_concerts()
     {
-        $this->disableExceptionHandling();
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
         $publishedConcertA = ConcertFactory::createPublished(['user_id' => $user->id]);
