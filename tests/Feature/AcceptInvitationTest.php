@@ -108,4 +108,83 @@ class AcceptInvitationTest extends TestCase
         $response->assertStatus(404);
         $this->assertEquals(0, User::count());
     }
+
+    /** @test */
+    function email_is_required()
+    {
+        $invitation = factory(Invitation::class)->create([
+            'user_id' => null,
+            'code' => 'TESTCODE1234',
+        ]);
+
+        $response = $this->from('/invitations/TESTCODE1234')->post('/register', [
+            'email' => '',
+            'password' => 'secret',
+            'invitation_code' => 'TESTCODE1234',
+        ]);
+
+        $response->assertRedirect('/invitations/TESTCODE1234');
+        $response->assertSessionHasErrors('email');
+        $this->assertEquals(0, User::count());
+    }
+
+    /** @test */
+    function email_must_be_an_email()
+    {
+        $invitation = factory(Invitation::class)->create([
+            'user_id' => null,
+            'code' => 'TESTCODE1234',
+        ]);
+
+        $response = $this->from('/invitations/TESTCODE1234')->post('/register', [
+            'email' => 'not-an-email',
+            'password' => 'secret',
+            'invitation_code' => 'TESTCODE1234',
+        ]);
+
+        $response->assertRedirect('/invitations/TESTCODE1234');
+        $response->assertSessionHasErrors('email');
+        $this->assertEquals(0, User::count());
+    }
+
+    /** @test */
+    function email_must_be_unique()
+    {
+        $existingUser = factory(User::class)->create(['email' => 'john@example.com']);
+        $this->assertEquals(1, User::count());
+
+        $invitation = factory(Invitation::class)->create([
+            'user_id' => null,
+            'code' => 'TESTCODE1234',
+        ]);
+
+        $response = $this->from('/invitations/TESTCODE1234')->post('/register', [
+            'email' => 'john@example.com',
+            'password' => 'secret',
+            'invitation_code' => 'TESTCODE1234',
+        ]);
+
+        $response->assertRedirect('/invitations/TESTCODE1234');
+        $response->assertSessionHasErrors('email');
+        $this->assertEquals(1, User::count());
+    }
+
+    /** @test */
+    function password_is_required()
+    {
+        $invitation = factory(Invitation::class)->create([
+            'user_id' => null,
+            'code' => 'TESTCODE1234',
+        ]);
+
+        $response = $this->from('/invitations/TESTCODE1234')->post('/register', [
+            'email' => 'john@example.com',
+            'password' => '',
+            'invitation_code' => 'TESTCODE1234',
+        ]);
+
+        $response->assertRedirect('/invitations/TESTCODE1234');
+        $response->assertSessionHasErrors('password');
+        $this->assertEquals(0, User::count());
+    }
 }
