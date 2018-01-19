@@ -9,6 +9,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ConnectWithStripeTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     public function connecting_a_stripe_account_successfully()
     {
