@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backstage;
 
+use Zttp\Zttp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StripeConnectController extends Controller
 {
@@ -19,5 +21,21 @@ class StripeConnectController extends Controller
         ]);
 
         return redirect($url);
+    }
+
+    public function redirect()
+    {
+        $accessTokenResponse = Zttp::asFormParams()->post('https://connect.stripe.com/oauth/token', [
+            'grant_type' => 'authorization_code',
+            'code' => request('code'),
+            'client_secret' => config('services.stripe.secret'),
+        ])->json();
+
+        Auth::user()->update([
+            'stripe_account_id' => $accessTokenResponse['stripe_user_id'],
+            'stripe_access_token' => $accessTokenResponse['access_token'],
+        ]);
+
+        return redirect()->route('backstage.concerts.index');
     }
 }
