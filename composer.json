@@ -11,7 +11,7 @@
         "stripe/stripe-php": "^4.3",
         "guzzlehttp/guzzle": "^6.2",
         "hashids/hashids": "^2.0",
-        "laravel/dusk": "^1.1",
+        "laravel/dusk": "^2.0.10",
         "intervention/image": "^2.4"
     },
     "require-dev": {
