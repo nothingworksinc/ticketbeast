@@ -14,7 +14,7 @@ trait PaymentGatewayContractTests
         $paymentGateway = $this->getPaymentGateway();
 
         $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
-            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
+            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken(), 'test_acct_1234');
         });
 
         $this->assertCount(1, $newCharges);
@@ -40,7 +40,7 @@ trait PaymentGatewayContractTests
 
         $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
             try {
-                $paymentGateway->charge(2500, 'invalid-payment-token');
+                $paymentGateway->charge(2500, 'invalid-payment-token', 'test_acct_1234');
             } catch (PaymentFailedException $e) {
                 return;
             }
@@ -55,12 +55,12 @@ trait PaymentGatewayContractTests
     function can_fetch_charges_created_during_a_callback()
     {
         $paymentGateway = $this->getPaymentGateway();
-        $paymentGateway->charge(2000, $paymentGateway->getValidTestToken());
-        $paymentGateway->charge(3000, $paymentGateway->getValidTestToken());
+        $paymentGateway->charge(2000, $paymentGateway->getValidTestToken(), 'test_acct_1234');
+        $paymentGateway->charge(3000, $paymentGateway->getValidTestToken(), 'test_acct_1234');
 
         $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway) {
-            $paymentGateway->charge(4000, $paymentGateway->getValidTestToken());
-            $paymentGateway->charge(5000, $paymentGateway->getValidTestToken());
+            $paymentGateway->charge(4000, $paymentGateway->getValidTestToken(), 'test_acct_1234');
+            $paymentGateway->charge(5000, $paymentGateway->getValidTestToken(), 'test_acct_1234');
         });
 
         $this->assertCount(2, $newCharges);
