@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Concert;
 use Tests\TestCase;
 use App\Facades\TicketCode;
@@ -60,7 +61,12 @@ class PurchaseTicketsTest extends TestCase
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
 
-        $concert = \ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 3]);
+        $user = factory(User::class)->create(['stripe_account_id' => 'test_acct_1234']);
+        $concert = \ConcertFactory::createPublished([
+            'ticket_price' => 3250,
+            'ticket_quantity' => 3,
+            'user_id' => $user,
+        ]);
 
         $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -81,7 +87,7 @@ class PurchaseTicketsTest extends TestCase
             ]
         ]);
 
-        $this->assertEquals(9750, $this->paymentGateway->totalCharges());
+        $this->assertEquals(9750, $this->paymentGateway->totalChargesFor('test_acct_1234'));
         $this->assertTrue($concert->hasOrderFor('john@example.com'));
 
         $order = $concert->ordersFor('john@example.com')->first();
