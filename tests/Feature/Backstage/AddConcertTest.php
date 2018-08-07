@@ -56,7 +56,6 @@ class AddConcertTest extends TestCase
     /** @test */
     function adding_a_valid_concert()
     {
-        $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
 
